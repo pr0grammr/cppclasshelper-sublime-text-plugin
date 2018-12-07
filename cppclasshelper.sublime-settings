@@ -1,0 +1,11 @@
+{
+	// opens the class after creation
+	"open_after_creation": true,
+
+	// split screen into header and sourcefile for better workflow
+	// works only if "open_after_creation" is set to true
+	"split_screen": true, 
+
+	// file extension in which the headerfile is created
+	"header_file_extension": ".hpp"
+}
