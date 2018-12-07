@@ -2,6 +2,7 @@
 	{
 		"caption": "Create C++ Class",
 		"id": "create_cpp_class",
-		"command": "create_cpp_class"
+		"command": "create_cpp_class",
+		"args": {"file_path": "${folder}", "paths": []}
 	}
 ]
