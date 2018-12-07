@@ -10,14 +10,16 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 		# global settings
 		self.settings = sublime.load_settings("cppclasshelper.sublime-settings")
 		self.vars = self.window.extract_variables()
+		self.view = self.window.active_view()
 
+		self.header_file_extension = self.settings.get('header_file_extension')
+
+		# directory where files will be created
 		self.create_directory = self.vars['file_path']
 
 		# get folder from sidebar
 		if "paths" in kwargs:
 			self.create_directory = kwargs['paths'][0]
-
-		print(self.create_directory)
 
 		# plugin settings
 		self.plugin_name = 'cppclasshelper'
@@ -30,12 +32,9 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 
 	def create_class(self, class_name):
 
-		# settings variables
-		header_file_extension = self.settings.get('header_file_extension')
-
 		# set source file and header file
-		source_file_name = "{}.cpp".format(class_name)
-		header_file_name = "{}.{}".format(class_name, header_file_extension)
+		self.source_file_name = "{}.cpp".format(class_name)
+		self.header_file_name = "{}.{}".format(class_name, self.header_file_extension)
 
 		source_file_template = Template("C++ Source File")
 		header_file_template = Template("C++ Header File")
@@ -49,27 +48,50 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 
 
 		# render the template
-		source_file_template.render(class_name=class_name, header_file_extension=header_file_extension)
+		source_file_template.render(class_name=class_name, header_file_extension=self.header_file_extension)
 		header_file_template.render(class_name=class_name)
 
 		# file names to create
-		source_file = "{}/{}".format(self.create_directory, source_file_name)
-		header_file = "{}/{}".format(self.create_directory, header_file_name)
+		self.source_file = "{}/{}".format(self.create_directory, self.source_file_name)
+		self.header_file = "{}/{}".format(self.create_directory, self.header_file_name)
 
 		# write files
 		try:
 
-			# write source file
-			source_file_obj = open(source_file, "w+")
-			source_file_obj.write(source_file_template.template)
-			source_file_obj.close()
-
 			# write header file
-			header_file_obj = open(header_file, "w+")
+			header_file_obj = open(self.header_file, "w+")
 			header_file_obj.write(header_file_template.template)
 			header_file_obj.close()
+			self.view.set_status('class_create_progress_header_file', 'Successfully created {}'.format(self.header_file_name))
+
+			# write source file
+			source_file_obj = open(self.source_file, "w+")
+			source_file_obj.write(source_file_template.template)
+			source_file_obj.close()
+			self.view.set_status('class_create_progress_source_file', 'Successfully created {}'.format(self.source_file_name))
+
+			# clear status bar
+			sublime.set_timeout(self._erase_status, 5000)
+
+			if self.settings.get('open_after_creation'):
+				self.open_files()
+
 
 		except Exception as e:
 			sublime.error_message("Error while creating class: {}".format(str(e)))
+
+
+	
+	def open_files(self):
+		'''
+		open files after creation
+		'''
+		self.window.open_file(self.header_file)
+
+
+	# helper methods
+	def _erase_status(self):
+		self.view.erase_status('class_create_progress_header_file')
+		self.view.erase_status('class_create_progress_source_file')
 		
 		
