@@ -1,0 +1,5 @@
+#include "{class_name}.{header_file_extension}"
+
+{class_name}::{class_name}() {{}}
+
+~{class_name}::{class_name}() {{}}
