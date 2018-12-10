@@ -1,4 +1,4 @@
-import sublime, sublime_plugin
+import sublime, sublime_plugin, re
 from .template import Template
 
 class CreateCppClassCommand(sublime_plugin.WindowCommand):
@@ -94,4 +94,18 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 		self.view.erase_status('class_create_progress_header_file')
 		self.view.erase_status('class_create_progress_source_file')
 		
+		
+class CreateDefinitionCommand(sublime_plugin.WindowCommand):
+
+	def run(self):
+		classes_regex = r"class[\s]+([\w]+)[\s:\w]*\{([\w:\s\(\)\;~]*)\}\;"
+		current_file_obj = open(self.window.active_view().file_name(), 'r')
+
+		# compile regex and match in currently active file
+		classes_regex_compiled = re.compile(classes_regex, re.IGNORECASE | re.DOTALL | re.MULTILINE)
+		classes_matches = classes_regex_compiled.findall(current_file_obj.read())
+
+		for match in classes_matches:
+			print("class_name: ", match[0])
+			print("class_content: ", match[1])
 		
