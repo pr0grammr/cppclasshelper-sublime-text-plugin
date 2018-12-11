@@ -3,5 +3,5 @@
 	"open_after_creation": true,
 
 	// file extension in which the headerfile is created
-	"header_file_extension": "hpp",
+	"header_file_extension": "hpp"
 }

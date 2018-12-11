@@ -7,6 +7,13 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 	'''
 	def run(self, **kwargs):
 
+		# plugin settings
+		self.plugin_name = 'cppclasshelper-sublime-text-plugin'
+		self.template_dir_name = 'templates'
+		self.plugin_dir = "{}/{}".format(sublime.packages_path(), self.plugin_name)
+		print(self.plugin_dir)
+		self.template_dir = "{}/{}/".format(self.plugin_dir, self.template_dir_name)
+
 		# global settings
 		self.settings = sublime.load_settings("cppclasshelper.sublime-settings")
 		self.vars = self.window.extract_variables()
@@ -20,11 +27,6 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 		# get folder from sidebar
 		if "paths" in kwargs:
 			self.create_directory = kwargs['paths'][0]
-
-		# plugin settings
-		self.plugin_name = 'cppclasshelper'
-		self.template_dir_name = 'templates'
-		self.template_dir = "{}/{}/{}/".format(sublime.packages_path(), self.plugin_name, self.template_dir_name)
 
 		# user enter a class name to create the class
 		self.window.show_input_panel("Enter class name: ", "", self.create_class, None, None)
