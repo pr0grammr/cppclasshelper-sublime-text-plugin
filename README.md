@@ -10,7 +10,7 @@ Download this repository or clone it.
 $ git clone https://github.com/sawzcode/cppclasshelper-sublime-text-plugin.git
 ```
 
-Copy the folder in your sublime text packages path. You can find it, when you click `Preferences` -> `Browse Packages`. 
+Copy the folder in your sublime text packages path. You can find it by clicking `Preferences` -> `Browse Packages`. 
 
 > This package might be available at <a href="https://github.com/wbond/package_control_channel" target="_blank">package control</a> soon!
 
