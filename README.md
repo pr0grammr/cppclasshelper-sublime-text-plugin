@@ -18,7 +18,7 @@ Copy the folder in your sublime text packages path. You can find it by clicking 
 
 Right-click on the folder in your sidebar, where you want to create your class and click `Create C++ Class`. Enter your classname without file extension in the input panel. After you entered the name, hit return. The sourcefile and headerfile for your class will now be created in the folder you clicked in the sidebar. 
 
-<img src="https://raw.githubusercontent.com/sawzcode/cppclasshelper-sublime-text-plugin/master/preview.gif">
+<img src="https://raw.githubusercontent.com/pr0grammr/cppclasshelper-sublime-text-plugin/master/preview.gif">
 
 ## Settings
 
