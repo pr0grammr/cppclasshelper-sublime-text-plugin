@@ -7,7 +7,7 @@ Sublime Text Plugin for creating/generating C++ Classes.
 Download this repository or clone it.
 
 ```bash
-$ git clone https://github.com/sawzcode/cppclasshelper-sublime-text-plugin.git
+$ git clone https://github.com/pr0grammr/cppclasshelper-sublime-text-plugin.git
 ```
 
 Copy the folder in your sublime text packages path. You can find it by clicking `Preferences` -> `Browse Packages`. 
