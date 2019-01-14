@@ -1,4 +1,4 @@
-import os 
+import os, sublime
 
 class Template:
 
@@ -10,19 +10,11 @@ class Template:
 
 	def load(self, filename):
 		# load template file
-		 self._filename = filename
-		 if not os.path.isfile(self._filename):
-		 	raise OSError(2, "'{filename}' not found".format(filename=filename))
-		 else:
+		 self._filename = str(filename)
 
-		 	# set filename
-		 	# read template to string
-		 	self._filename = filename
-
-		 	# reading template
-		 	template_file_obj = open(self._filename, 'r')
-		 	self._template = template_file_obj.read()
-
+		 # reading template
+		 self._template = sublime.load_resource(filename)
+		 
 
 	def render(self, **values):
 		"""

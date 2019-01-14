@@ -1,5 +1,6 @@
-import sublime, sublime_plugin
+import sublime, sublime_plugin, os
 from .template import Template
+from sublime_lib import ResourcePath
 
 class CreateCppClassCommand(sublime_plugin.WindowCommand):
 	'''
@@ -8,11 +9,10 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 	def run(self, **kwargs):
 
 		# plugin settings
+		self.package_dir = ResourcePath.from_file_path(__file__).parent
 		self.plugin_name = 'cppclasshelper-sublime-text-plugin'
 		self.template_dir_name = 'templates'
-		self.plugin_dir = "{}/{}".format(sublime.packages_path(), self.plugin_name)
-		print(self.plugin_dir)
-		self.template_dir = "{}/{}/".format(self.plugin_dir, self.template_dir_name)
+		self.template_dir = "{}/{}/".format(self.package_dir, self.template_dir_name)
 
 		# global settings
 		self.settings = sublime.load_settings("cppclasshelper.sublime-settings")
@@ -22,7 +22,11 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 		self.header_file_extension = self.settings.get('header_file_extension')
 
 		# directory where files will be created
-		self.create_directory = self.vars['file_path']
+		print(self.vars)
+		if not "file_path" in self.vars:
+			self.create_directory = self.vars['folder']
+		else:
+			self.create_directory = self.vars['file_path']
 
 		# get folder from sidebar
 		if "paths" in kwargs:
