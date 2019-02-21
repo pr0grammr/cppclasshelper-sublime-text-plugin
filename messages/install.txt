@@ -1,0 +1,17 @@
+Thanks for installing C++ Classhelper!
+
+Usage: 
+------
+
+1. Right-click on a folder where you want to create your C++ Class
+2. Enter a name and the input below (without file extension)
+3. Hit return and your class will be created 
+
+HAVE FUN
+
+Customize: 
+----------
+
+You can customize the file extension by changing extension in Preferences -> Package Settings -> C++ Classhelper -> Settings user
+
+See all available settings in Preferences -> Package Settings -> C++ Classhelper -> Settings Default
