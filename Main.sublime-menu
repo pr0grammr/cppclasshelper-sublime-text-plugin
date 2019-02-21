@@ -17,12 +17,12 @@
                         [
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/cppclasshelper-sublime-text-plugin/cppclasshelper.sublime-settings"},
+                                "args": {"file": "${packages}/C++ Classhelper/C++ Classhelper.sublime-settings"},
                                 "caption": "Settings – Default"
                             },
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/User/cppclasshelper.sublime-settings"},
+                                "args": {"file": "${packages}/User/C++ Classhelper.sublime-settings"},
                                 "caption": "Settings – User"
                             }
                         ]
