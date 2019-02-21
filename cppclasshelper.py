@@ -16,7 +16,7 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 		self.template_dir = self.package_dir / self.template_dir_name
 
 		# global settings
-		self.settings = sublime.load_settings("cppclasshelper.sublime-settings")
+		self.settings = sublime.load_settings("C++ Classhelper.sublime-settings")
 		self.vars = self.window.extract_variables()
 		self.view = self.window.active_view()
 
