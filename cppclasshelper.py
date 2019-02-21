@@ -10,9 +10,10 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 
 		# plugin settings
 		self.package_dir = ResourcePath.from_file_path(__file__).parent
-		self.plugin_name = 'cppclasshelper-sublime-text-plugin'
+		self.plugin_name = 'C++ Classhelper'
 		self.template_dir_name = 'templates'
-		self.template_dir = "{}/{}/".format(self.package_dir, self.template_dir_name)
+		# self.template_dir = "{}/{}/".format(self.package_dir, self.template_dir_name)
+		self.template_dir = self.package_dir / self.template_dir_name
 
 		# global settings
 		self.settings = sublime.load_settings("cppclasshelper.sublime-settings")
@@ -46,8 +47,8 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 		header_file_template = Template("C++ Header File")
 
 		try:
-			source_file_template.load(self.template_dir + 'sourcefile.template')
-			header_file_template.load(self.template_dir + 'headerfile.template')
+			source_file_template.load(self.template_dir / 'sourcefile.template')
+			header_file_template.load(self.template_dir / 'headerfile.template')
 		except OSError as e:
 			sublime.error_message("Error while loading class template: {}".format(str(e)))
 			return

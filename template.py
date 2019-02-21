@@ -10,10 +10,10 @@ class Template:
 
 	def load(self, filename):
 		# load template file
-		 self._filename = str(filename)
+		self._filename = str(filename)
 
-		 # reading template
-		 self._template = sublime.load_resource(filename)
+		# reading template
+		self._template = filename.read_text()
 		 
 
 	def render(self, **values):
