@@ -1,0 +1,16 @@
+1.1.0
+---
+
+Added option "use_pragma_once" to settings
+
+Usage
+---
+
+You can set the following in your plugin settings
+
+"use_pragma_once": true
+// will include #pragma once in the header file
+
+
+"use_pragma_once": false
+// will include old header style instead 
