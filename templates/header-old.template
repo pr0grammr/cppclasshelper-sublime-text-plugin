@@ -1,0 +1,6 @@
+#ifndef {class_name_uppercase}
+#define {class_name_uppercase}
+
+{class_header_content}
+
+#endif

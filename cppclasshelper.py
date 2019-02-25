@@ -45,10 +45,17 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 
 		source_file_template = Template("C++ Source File")
 		header_file_template = Template("C++ Header File")
+		header_template = Template("C++ Header Style")
 
 		try:
 			source_file_template.load(self.template_dir / 'sourcefile.template')
 			header_file_template.load(self.template_dir / 'headerfile.template')
+
+			if self.settings.get('use_pragma_once'):
+				header_template.load(self.template_dir / 'header-new.template')
+			else:
+				header_template.load(self.template_dir / 'header-old.template')
+
 		except OSError as e:
 			sublime.error_message("Error while loading class template: {}".format(str(e)))
 			return
@@ -57,6 +64,14 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 		# render the template
 		source_file_template.render(class_name=class_name, header_file_extension=self.header_file_extension)
 		header_file_template.render(class_name=class_name)
+
+		# render headerfile into header style
+		if self.settings.get('use_pragma_once'):
+			template_vars = {'class_header_content': header_file_template.template}
+		else:
+			template_vars = {'class_header_content': header_file_template.template, 'class_name_uppercase': self._build_header_symbol_name(class_name)}
+
+		header_template.render(**template_vars)
 
 		# file names to create
 		self.source_file = "{}/{}".format(self.create_directory, self.source_file_name)
@@ -67,7 +82,7 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 
 			# write header file
 			header_file_obj = open(self.header_file, "w+")
-			header_file_obj.write(header_file_template.template)
+			header_file_obj.write(header_template.template)
 			header_file_obj.close()
 			self.view.set_status('class_create_progress_header_file', 'Successfully created {}'.format(self.header_file_name))
 
@@ -100,5 +115,12 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 	def _erase_status(self):
 		self.view.erase_status('class_create_progress_header_file')
 		self.view.erase_status('class_create_progress_source_file')
+
+
+	def _build_header_symbol_name(self, class_name):
+		class_name += "_{}".format(self.settings.get('header_file_extension'))
+		class_name = class_name.upper()
+
+		return class_name
 		
 		
