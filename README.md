@@ -26,7 +26,7 @@ Right-click on the folder in your sidebar, where you want to create your class a
 
 ## Settings
 
-```json
+```javascript
 {
 	"open_after_creation": true, // opens the class after creation
 	"header_file_extension": "hpp", // file extension in which the headerfile is created (e.g.: hpp or h)
