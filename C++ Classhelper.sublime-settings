@@ -3,5 +3,8 @@
 	"open_after_creation": true,
 
 	// file extension in which the headerfile is created
-	"header_file_extension": "hpp"
+	"header_file_extension": "hpp",
+
+	// set to false if you want to use alternative header style
+	"use_pragma_once": true
 }
