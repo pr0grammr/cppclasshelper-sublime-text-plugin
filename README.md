@@ -14,7 +14,8 @@ Download or clone this repository.
 $ git clone https://github.com/pr0grammr/cppclasshelper-sublime-text-plugin.git
 ```
 
-Copy the folder in your sublime text packages path. You can find it by clicking `Preferences` -> `Browse Packages`. 
+Rename the downloaded folder to `C++ Classhelper`.
+Copy the folder in the sublime text package directory. You'll find it by clicking `Preferences` -> `Browse Packages`. 
 
 
 ## Usage
