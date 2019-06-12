@@ -64,9 +64,8 @@ class Method:
         self._class = related_clas
 
     def __str__(self):
-        template= """
-        {template} {return_type} {namespace}::{class_name}{template}::{method_name}({arguments}){keywords}{{}}
-        """
+
+        template = "{template} {return_type} {namespace}{class_name}{template_types}::{method_name}({arguments}){keywords} {{}}"
 
         method_template = []
 
@@ -74,14 +73,23 @@ class Method:
             for datatype in self._class.template.datatypes:
                 method_template.append(datatype.datatype)
 
-        method_template = "<{}>".format(', '.join(method_template))
+        if self._class.template:
+            method_template = "<{}>".format(', '.join(method_template))
+        else:
+            method_template = ""
+
+        if self._class.namespace:
+            namespace = self._class.namespace + "::"
+        else:
+            namespace = ""
 
         return template.format(
+            template=self._template,
             return_type=self._return_type,
             operator=self._operator,
-            namespace=self._class.namespace,
+            namespace=namespace,
             class_name=self._class.name,
-            template=method_template,
+            template_types=method_template,
             method_name=self._name,
             arguments=', '.join(self._arguments),
             keywords=' '.join(self._keywords)
