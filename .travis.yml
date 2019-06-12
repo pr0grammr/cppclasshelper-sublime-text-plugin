@@ -3,5 +3,8 @@ python:
   - "3.3"
   - "3.3.6"
 
+install:
+  pip install pytest
+
 script:
   - pytest tests/test_klass.py

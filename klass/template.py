@@ -17,5 +17,4 @@ class Template:
         for template_type in self._template_types:
             render.append(str(template_type))
 
-        print(render)
         return template.format(content=', '.join(render))
