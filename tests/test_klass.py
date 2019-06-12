@@ -18,6 +18,8 @@ method1.name = 'get'
 
 klass1.add_method(method1)
 
+print(method1)
 
 def test_render():
+
     assert str(method1) == "template <typename T> T User::get() {}"
