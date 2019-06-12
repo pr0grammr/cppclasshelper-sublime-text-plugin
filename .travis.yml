@@ -5,5 +5,8 @@ python:
 install:
   - pip install pytest
 
+before_script:
+  - cd tests
+
 script:
-  - pytest tests/test_klass.py
+  - pytest test_klass.py
