@@ -1,25 +1,13 @@
-import sys, os
+from class_generator import ClassGenerator
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+FILES = [
+    "files/dynamicmap.json",
+    "files/user.json"
+]
 
 
-import klass as c
-
-klass1 = c.Klass("User")
-
-template1 = c.Template()
-template1.add_template_type(c.TemplateType('typename', 'T'))
-
-method1 = c.Method()
-method1.template = template1
-method1.return_type = 'T'
-method1.related_class = klass1
-method1.name = 'get'
-
-klass1.add_method(method1)
-
-print(method1)
-
-def test_render():
-
-    assert str(method1) == "template <typename T> T User::get() {}"
+def test_method_rendering():
+    for file in FILES:
+        generator = ClassGenerator(file)
+        for method in generator.generate():
+            assert str(method["method"]) == method["expected"]

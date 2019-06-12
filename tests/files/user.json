@@ -1,0 +1,25 @@
+{
+  "name": "User",
+  "template": [],
+    "methods": [
+      {
+        "name": "setName",
+        "return_type": "void",
+        "template": [],
+        "arguments": [
+          {
+            "datatype": "std::string",
+            "identifier": "name"
+          }
+        ],
+        "expected": "void User::setName(std::string name) {}"
+      },
+      {
+        "name": "getName",
+        "return_type": "std::string",
+        "template": [],
+        "arguments": [],
+        "expected": "std::string User::getName() {}"
+      }
+    ]
+  }

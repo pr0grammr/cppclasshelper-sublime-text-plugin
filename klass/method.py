@@ -22,7 +22,7 @@ class Method:
         return self._arguments
 
     def add_argument(self, argument):
-        self._arguments.append(argument)
+        self._arguments.append(str(argument))
 
     @property
     def return_type(self):
@@ -70,8 +70,11 @@ class Method:
         method_template = []
 
         if self._class.template:
-            for datatype in self._class.template.datatypes:
-                method_template.append(datatype.datatype)
+            for template_type in self._class.template.template_types:
+                method_template.append(str(template_type.name))
+
+        if not self._template:
+            self._template = ""
 
         if self._class.template:
             method_template = "<{}>".format(', '.join(method_template))
@@ -83,6 +86,9 @@ class Method:
         else:
             namespace = ""
 
+        if not self._keywords:
+            self._keywords = ""
+
         return template.format(
             template=self._template,
             return_type=self._return_type,
@@ -93,4 +99,4 @@ class Method:
             method_name=self._name,
             arguments=', '.join(self._arguments),
             keywords=' '.join(self._keywords)
-        )
+        ).strip()

@@ -1,0 +1,61 @@
+{
+  "name": "DynamicMap",
+    "template": [
+      {
+        "typename": "class",
+        "datatype": "A"
+      },
+      {
+        "typename": "class",
+        "datatype": "B"
+      }
+    ],
+    "methods": [
+      {
+        "name": "get",
+        "return_type": "B",
+        "template": [
+          {
+            "typename": "typename",
+            "datatype": "A"
+          },
+          {
+            "typename": "typename",
+            "datatype": "B"
+          }
+        ],
+        "arguments": [
+          {
+            "datatype": "A",
+            "identifier": "key"
+          }
+        ],
+        "expected": "template <typename A, typename B> B DynamicMap<A, B>::get(A key) {}"
+      },
+      {
+        "name": "set",
+        "return_type": "void",
+        "template": [
+          {
+            "typename": "typename",
+            "datatype": "A"
+          },
+          {
+            "typename": "typename",
+            "datatype": "B"
+          }
+        ],
+        "arguments": [
+          {
+            "datatype": "A",
+            "identifier": "key"
+          },
+          {
+            "datatype": "B",
+            "identifier": "value"
+          }
+        ],
+        "expected": "template <typename A, typename B> void DynamicMap<A, B>::set(A key, B value) {}"
+      }
+    ]
+  }
