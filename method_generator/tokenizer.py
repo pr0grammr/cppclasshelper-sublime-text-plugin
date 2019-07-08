@@ -25,7 +25,7 @@ class ClassTokenizer(Tokenizer):
         # strip comments and keywords
         input_str = cls._strip_class_metadata(input_str)
 
-        class_context = re.search(r"class\s+([A-Za-z]+[0-9]*)\s*\{(.*)\};", input_str, re.DOTALL)
+        class_context = re.search(r"class\s+([A-Za-z]+[0-9]*)\s*\{(.*)\}[;]*", input_str, re.DOTALL)
         cls._class_obj = {}
 
         if class_context is None:
@@ -36,14 +36,15 @@ class ClassTokenizer(Tokenizer):
 
             # parse all class members with various tokenizers
             try:
-                cls._class_obj["namespace"] = NamespaceTokenizer().tokenize(class_context)
+                cls._class_obj["namespace"] = NamespaceTokenizer().tokenize(input_str)
                 cls._class_obj["template"] = TemplateTokenizer().tokenize(input_str)
                 cls._class_obj["name"] = cls._parse_class_name(input_str)
                 cls._class_obj["methods"] = MethodTokenizer().tokenize(class_context)
 
-                a = 1
             except ClassValidationException as e:
                 raise ClassValidationException(str(e))
+
+            return cls._class_obj
 
     @classmethod
     def _strip_class_metadata(cls, input_str):
@@ -185,7 +186,7 @@ class MethodTokenizer(Tokenizer):
 
                 method_dict["name"] = method_name
 
-                if cls._is_constructor_or_destructor(method_name):
+                if cls._is_constructor_or_destructor(method_name_parts):
                     method_dict["return_type"] = None
                 else:
                     method_dict["return_type"] = cls._parse_return_type(method_name_parts_split)
