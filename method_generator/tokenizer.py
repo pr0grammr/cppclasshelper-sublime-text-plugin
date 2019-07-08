@@ -225,10 +225,10 @@ class MethodTokenizer(Tokenizer):
         """
 
         # check if first key is a reserved keyword like friend or virtual
-        if method_parts[0] not in cls.KEYWORD_METHOD_PREFIXES:
+        if len(method_parts) == 1:
             return method_parts[0]
-        else:
-            return method_parts[1]
+
+        return method_parts[-2]
 
     @classmethod
     def _is_constructor_or_destructor(cls, method_name):
