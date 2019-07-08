@@ -5,8 +5,8 @@ python:
 install:
   - pip install pytest
 
-before_script:
-  - cd tests
+#before_script:
+#  - cd tests
 
 script:
-  - pytest test_klass.py
+  - python -m pytest -r tests/test_tokenizer.py
