@@ -5,9 +5,9 @@ class Method:
         self._arguments = []
         self._return_type = None
         self._template = None
-        self._keywords = []
-        self._operator = None
         self._class = None
+        self._is_const = False
+        self._is_pure_virtual = False
 
     @property
     def name(self):
@@ -41,27 +41,28 @@ class Method:
         self._template = template
 
     @property
-    def keywords(self):
-        return self._keywords
-
-    def add_keyword(self, keyword):
-        self._keywords.append(keyword)
-
-    @property
-    def operator(self):
-        return self._operator
-
-    @operator.setter
-    def operator(self, operator):
-        self._operator = operator
-
-    @property
     def related_class(self):
         return self._class
 
     @related_class.setter
     def related_class(self, related_clas):
         self._class = related_clas
+
+    @property
+    def is_const(self):
+        return self._is_const
+
+    @is_const.setter
+    def is_const(self, is_const):
+        self._is_const = is_const
+
+    @property
+    def is_pure_virtual(self):
+        return self._is_pure_virtual
+
+    @is_pure_virtual.setter
+    def is_pure_virtual(self, is_pure_virtual):
+        self._is_pure_virtual = is_pure_virtual
 
     def __str__(self):
 
@@ -86,17 +87,12 @@ class Method:
         else:
             namespace = ""
 
-        if not self._keywords:
-            self._keywords = ""
-
         return template.format(
             template=self._template,
             return_type=self._return_type,
-            operator=self._operator,
             namespace=namespace,
             class_name=self._class.name,
             template_types=method_template,
             method_name=self._name,
             arguments=', '.join(self._arguments),
-            keywords=' '.join(self._keywords)
         ).strip()

@@ -29,6 +29,10 @@ class Klass:
     def namespace(self):
         return self._namespace
 
+    @namespace.setter
+    def namespace(self, namespace):
+        self._namespace = namespace
+
 
 
 
