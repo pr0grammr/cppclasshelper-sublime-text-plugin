@@ -2,8 +2,8 @@ import sys, os, json
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
+from method_generator import klass as c
 
-import klass as c
 
 def test():
     pass

@@ -13,5 +13,12 @@ namespace OS
         void close();
         void open();
 
+        inline void init()
+        {
+            std::cout << "test";
+        }
+
+        static int getSize();
+
     };
 };

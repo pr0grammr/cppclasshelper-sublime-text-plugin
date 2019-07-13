@@ -1,7 +1,6 @@
 from method_generator.tokenizer import ClassTokenizer
 from method_generator.exceptions import ClassValidationException
 import os
-import pytest
 
 
 def read_files_as_tokenizers():
@@ -59,7 +58,7 @@ class TestMethodTokenizer:
 
         # testing first class methods
         methods_file_0 = test_files[0]["methods"]
-        assert len(methods_file_0) == 11
+        assert len(methods_file_0) == 14
 
         assert methods_file_0[0]["name"] == "User"
         assert methods_file_0[0]["return_type"] == None
@@ -77,6 +76,11 @@ class TestMethodTokenizer:
         assert methods_file_0[3]["return_type"] == "void"
         assert methods_file_0[3]["is_pure_virtual"] == False
 
+        assert methods_file_0[4]["name"] == "getName"
+        assert methods_file_0[4]["return_type"] == "std::string"
+        assert methods_file_0[4]["is_pure_virtual"] == False
+        assert methods_file_0[4]["is_const"] == True
+
         assert methods_file_0[5]["name"] == "play"
         assert methods_file_0[5]["return_type"] == "void"
         assert methods_file_0[5]["is_pure_virtual"] == True
@@ -89,4 +93,9 @@ class TestMethodTokenizer:
 
         # testing second class methods
         methods_file_1 = test_files[1]["methods"]
-        assert len(methods_file_1) == 2
+        assert len(methods_file_1) == 3
+
+        assert methods_file_1[2]["return_type"] == "int"
+        assert methods_file_1[2]["name"] == "getSize"
+        assert methods_file_1[2]["is_pure_virtual"] == False
+        assert methods_file_1[2]["is_const"] == False

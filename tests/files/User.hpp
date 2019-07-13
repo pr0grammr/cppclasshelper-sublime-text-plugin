@@ -18,9 +18,11 @@ namespace sf::sd
 
             // sets user
             void setName(std::string name);
-            std::string getName();
+            std::string getName() const;
 
             virtual void play() = 0;
+
+
 
             void move();
 
@@ -31,11 +33,21 @@ namespace sf::sd
             template <typename T>
             T getEnemy();
 
+            template <typename T> getSomethingElse();
+
+            friend void foo();
+
+            virtual stop();
+
         private: // private methods
 
             std::string m_name;
             SuperPower* m_power;
             GameState *m_gameState;
             GameRef& m_gameRef;
+
+        public:
+
+            std::string machine_name;
     };
 }
