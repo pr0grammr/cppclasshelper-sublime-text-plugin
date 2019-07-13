@@ -7,7 +7,7 @@ class ClassParser:
     def parse(cls, input_obj):
         """
         create python classes from tokenized JSON object
-        :param input_obj:
+        :param input_obj: dict
         :return: Klass
         """
 
@@ -36,6 +36,12 @@ class MethodParser:
 
     @classmethod
     def parse(cls, input_method):
+        """
+        parses a single method into method object
+        :param input_method: dict
+        :return: Method
+        """
+
         method = Method()
 
         method.name = input_method["name"]
@@ -55,6 +61,11 @@ class TemplateParser:
 
     @classmethod
     def parse(cls, input_obj):
+        """
+        parses template method or class into Template object
+        :param input_obj: dict
+        :return: Template
+        """
 
         if input_obj is None:
             return
