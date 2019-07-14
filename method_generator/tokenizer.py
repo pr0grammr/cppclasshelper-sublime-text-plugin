@@ -25,7 +25,7 @@ class ClassTokenizer(Tokenizer):
         # strip comments and keywords
         input_str = cls._strip_class_metadata(input_str)
 
-        class_context = re.search(r"class\s+([A-Za-z]+[0-9]*)\s*\{(.*)\}[;]*", input_str, re.DOTALL)
+        class_context = re.search(r"class\s+([A-Za-z]+\s*\:*\s*[A-Za-z\s]*[0-9]*)\s*\{(.*)\}[;]*", input_str, re.DOTALL)
         cls._class_obj = {}
 
         if class_context is None:

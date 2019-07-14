@@ -6,7 +6,7 @@ namespace {
 
 namespace OS
 {
-    class Window
+    class Window : public Component
     {
         public:
 
