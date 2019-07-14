@@ -25,7 +25,7 @@ class ClassTokenizer(Tokenizer):
         # strip comments and keywords
         input_str = cls._strip_class_metadata(input_str)
 
-        class_context = re.search(r"class\s+([A-Za-z]+\s*\:*\s*[A-Za-z\s]*[0-9]*)\s*\{(.*)\}[;]*", input_str, re.DOTALL)
+        class_context = re.search(r"class\s+([A-Za-z]+[0-9]*)\s*\:*\s*[A-Za-z\s]*[0-9]*\s*\{(.*)\}[;]*", input_str, re.DOTALL)
         cls._class_obj = {}
 
         if class_context is None:
@@ -38,7 +38,6 @@ class ClassTokenizer(Tokenizer):
             try:
                 cls._class_obj["namespace"] = NamespaceTokenizer().tokenize(input_str)
                 cls._class_obj["template"] = TemplateTokenizer().tokenize(input_str)
-                cls._class_obj["name"] = cls._parse_class_name(input_str)
                 cls._class_obj["methods"] = MethodTokenizer().tokenize(class_context)
 
             except ClassValidationException as e:
@@ -57,16 +56,6 @@ class ClassTokenizer(Tokenizer):
         input_str = re.sub(r"(public:|private:|protected:)", "", input_str, re.DOTALL)
 
         return input_str
-
-    @classmethod
-    def _parse_class_name(cls, input_str):
-        """
-        get name of class
-        :return: str
-        """
-        match = re.search(r"class\s+([A-Za-z]+[0-9]*)\s*\{", input_str)
-        if match is not None:
-            return match.group(1)
 
 
 class NamespaceTokenizer:
@@ -209,7 +198,8 @@ class MethodTokenizer(Tokenizer):
                 method_arguments = re.search(r".*\((.*)\)", method)
                 method_dict["arguments"] = None
                 if method_arguments is not None and method_arguments.group(1) is not None:
-                    method_dict["arguments"] = [x.strip() for x in method_arguments.group(1).split(',')]
+                    method_arguments = method_arguments.group(1).split(',')
+                    method_dict["arguments"] = filter(None, method_arguments)
 
                 # append method dict to methods list
                 methods.append(method_dict)

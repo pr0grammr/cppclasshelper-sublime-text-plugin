@@ -30,3 +30,26 @@ class TestClassParser():
         test_files = read_files_as_tokenizers()
 
         assert test_files[0].namespace == "sf::sd"
+        assert test_files[1].namespace == "OS"
+
+    def test_name_parsing(self):
+
+        test_files = read_files_as_tokenizers()
+
+        assert test_files[0].name == "User"
+        assert test_files[1].name == "Window"
+
+    def test_template_parsing(self):
+
+        test_files = read_files_as_tokenizers()
+
+        assert str(test_files[0].template) == "template <class T, typename D>"
+        assert test_files[1].template == None
+
+    def test_method_parsing(self):
+
+        test_files = read_files_as_tokenizers()
+
+        assert len(test_files[0].methods) == 14
+        assert len(test_files[0].methods[0].arguments) == 0
+        assert len(test_files[0].methods[1].arguments) == 2

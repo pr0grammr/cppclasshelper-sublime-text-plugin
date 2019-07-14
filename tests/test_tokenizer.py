@@ -25,6 +25,16 @@ def read_files_as_tokenizers():
 # a = 1
 
 
+class TestClassTokenizer:
+
+    def test_name_parsing(self):
+
+        test_files = read_files_as_tokenizers()
+
+        assert test_files[0]["name"] == "User"
+        assert test_files[1]["name"] == "Window"
+
+
 class TestTemplateTokenizer:
 
     def test_has_template(self):
