@@ -33,11 +33,11 @@ namespace sf::sd
             template <typename T>
             T getEnemy();
 
-            template <typename T> getSomethingElse();
+            template <typename T> T getSomethingElse();
 
             friend void foo();
 
-            virtual stop();
+            virtual void stop();
 
         private: // private methods
 

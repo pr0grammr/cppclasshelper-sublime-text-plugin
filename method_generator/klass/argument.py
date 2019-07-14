@@ -40,15 +40,15 @@ class Argument:
     def identifier(self, identifier):
         self._identifier = identifier
 
-    def __str__(self):
-        template = "{datatype}{operator} {identifier}"
-
-        if not self._operator:
-            self._operator = ""
-
-        return template.format(
-            keyword=self._keyword,
-            identifier=self._identifier,
-            operator=self._operator,
-            datatype=self._datatype
-        )
+    # def __str__(self):
+    #     template = "{datatype}{operator} {identifier}"
+    #
+    #     if not self._operator:
+    #         self._operator = ""
+    #
+    #     return template.format(
+    #         keyword=self._keyword,
+    #         identifier=self._identifier,
+    #         operator=self._operator,
+    #         datatype=self._datatype
+    #     )

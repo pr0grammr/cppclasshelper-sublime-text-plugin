@@ -64,35 +64,42 @@ class Method:
     def is_pure_virtual(self, is_pure_virtual):
         self._is_pure_virtual = is_pure_virtual
 
-    def __str__(self):
+    def render(self):
 
-        template = "{template} {return_type} {namespace}{class_name}{template_types}::{method_name}({arguments}){keywords} {{}}"
+        # creating empty method string to fill
+        method = ""
 
-        method_template = []
+        if self._class.template is not None:
+            method += str(self._class.template) + " "
 
-        if self._class.template:
+        if self._template is not None:
+            method += str(self.template) + " "
+
+        if self._return_type is not None:
+            method += self._return_type + " "
+
+        if self._class.namespace is not None:
+            method += self._class.namespace + "::"
+
+        method += self._class.name
+
+        if self._class.template is not None:
+            class_template_types = []
             for template_type in self._class.template.template_types:
-                method_template.append(str(template_type.name))
+                class_template_types.append(str(template_type.name))
 
-        if not self._template:
-            self._template = ""
+            method += "<{}>".format(', '.join(class_template_types))
 
-        if self._class.template:
-            method_template = "<{}>".format(', '.join(method_template))
+        method += "::"
+        method += self._name
+
+        if self._arguments:
+            self._arguments = [x.strip() for x in self._arguments]
+            self._arguments = ', '.join(self._arguments)
         else:
-            method_template = ""
+            self._arguments = ""
 
-        if self._class.namespace:
-            namespace = self._class.namespace + "::"
-        else:
-            namespace = ""
+        method += "({})".format(self._arguments)
+        method += " {}"
 
-        return template.format(
-            template=self._template,
-            return_type=self._return_type,
-            namespace=namespace,
-            class_name=self._class.name,
-            template_types=method_template,
-            method_name=self._name,
-            arguments=', '.join(self._arguments),
-        ).strip()
+        return method.strip()
