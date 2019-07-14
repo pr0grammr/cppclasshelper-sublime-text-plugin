@@ -1,4 +1,7 @@
 class Klass:
+    """
+    represents a C++ class
+    """
 
     def __init__(self, name):
         self._name = name

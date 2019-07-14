@@ -1,4 +1,7 @@
 class Method:
+    """
+    represents a C++ class method
+    """
 
     def __init__(self):
         self._name = None

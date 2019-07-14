@@ -1,4 +1,7 @@
 class Datatype:
+    """
+    represents a datatype
+    """
 
     def __init__(self, name):
         self._name = name
@@ -12,4 +15,9 @@ class Datatype:
         self._name = name
 
     def __str__(self):
+        """
+        renders datatype name
+        :return: str
+        """
+
         return self._name

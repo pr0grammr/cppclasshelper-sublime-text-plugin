@@ -1,4 +1,7 @@
 class Template:
+    """
+    represents a C++ class or method template
+    """
 
     def __init__(self):
         self._template_types = []
@@ -11,6 +14,11 @@ class Template:
         self._template_types.append(template_type)
 
     def __str__(self):
+        """
+        renders a class or method template
+        :return: str
+        """
+
         template = "template <{content}>"
         render = []
 
