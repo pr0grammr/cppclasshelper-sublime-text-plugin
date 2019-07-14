@@ -140,6 +140,10 @@ class Method:
         # insert arguments
         method += "({}) ".format(self._arguments)
 
+        # check if method is const
+        if self._is_const:
+            method += "const "
+
         # place newline after if option is set
         if self._options["newline_after_method"]:
             method += "\n"

@@ -78,7 +78,7 @@ class TestMethodParser:
         assert str(methods_0[1]) == "template <class T, typename D> sf::sd::User<T, D>::User(std::string name, int skillLevel) {}"
         assert str(methods_0[2]) == "template <class T, typename D> sf::sd::User<T, D>::~User() {}"
         assert str(methods_0[3]) == "template <class T, typename D> void sf::sd::User<T, D>::setName(std::string name) {}"
-        assert str(methods_0[4]) == "template <class T, typename D> std::string sf::sd::User<T, D>::getName() {}"
+        assert str(methods_0[4]) == "template <class T, typename D> std::string sf::sd::User<T, D>::getName() const {}"
         assert str(methods_0[6]) == "template <class T, typename D> void sf::sd::User<T, D>::move() {}"
         assert str(methods_0[7]) == "template <class T, typename D> GameState* sf::sd::User<T, D>::getGameState() {}"
         assert str(methods_0[8]) == "template <class T, typename D> GameRef& sf::sd::User<T, D>::getGameRef() {}"
