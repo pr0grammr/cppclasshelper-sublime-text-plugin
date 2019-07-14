@@ -74,16 +74,40 @@ class TestMethodParser:
         assert str(methods_0[10].template) == "template <typename T>"
 
         # testing full output from methods
-        assert methods_0[0].render() == "template <class T, typename D> sf::sd::User<T, D>::User() {}"
-        assert methods_0[1].render() == "template <class T, typename D> sf::sd::User<T, D>::User(std::string name, int skillLevel) {}"
-        assert methods_0[2].render() == "template <class T, typename D> sf::sd::User<T, D>::~User() {}"
-        assert methods_0[3].render() == "template <class T, typename D> void sf::sd::User<T, D>::setName(std::string name) {}"
-        assert methods_0[4].render() == "template <class T, typename D> std::string sf::sd::User<T, D>::getName() {}"
-        assert methods_0[6].render() == "template <class T, typename D> void sf::sd::User<T, D>::move() {}"
-        assert methods_0[7].render() == "template <class T, typename D> GameState* sf::sd::User<T, D>::getGameState() {}"
-        assert methods_0[8].render() == "template <class T, typename D> GameRef& sf::sd::User<T, D>::getGameRef() {}"
-        assert methods_0[9].render() == "template <class T, typename D> SuperPower* sf::sd::User<T, D>::getSuperPower() {}"
-        assert methods_0[10].render() == "template <class T, typename D> template <typename T> T sf::sd::User<T, D>::getEnemy() {}"
-        assert methods_0[11].render() == "template <class T, typename D> template <typename T> T sf::sd::User<T, D>::getSomethingElse() {}"
-        assert methods_0[12].render() == "template <class T, typename D> void sf::sd::User<T, D>::foo() {}"
-        assert methods_0[13].render() == "template <class T, typename D> void sf::sd::User<T, D>::stop() {}"
+        assert str(methods_0[0]) == "template <class T, typename D> sf::sd::User<T, D>::User() {}"
+        assert str(methods_0[1]) == "template <class T, typename D> sf::sd::User<T, D>::User(std::string name, int skillLevel) {}"
+        assert str(methods_0[2]) == "template <class T, typename D> sf::sd::User<T, D>::~User() {}"
+        assert str(methods_0[3]) == "template <class T, typename D> void sf::sd::User<T, D>::setName(std::string name) {}"
+        assert str(methods_0[4]) == "template <class T, typename D> std::string sf::sd::User<T, D>::getName() {}"
+        assert str(methods_0[6]) == "template <class T, typename D> void sf::sd::User<T, D>::move() {}"
+        assert str(methods_0[7]) == "template <class T, typename D> GameState* sf::sd::User<T, D>::getGameState() {}"
+        assert str(methods_0[8]) == "template <class T, typename D> GameRef& sf::sd::User<T, D>::getGameRef() {}"
+        assert str(methods_0[9]) == "template <class T, typename D> SuperPower* sf::sd::User<T, D>::getSuperPower() {}"
+        assert str(methods_0[10]) == "template <class T, typename D> template <typename T> T sf::sd::User<T, D>::getEnemy() {}"
+        assert str(methods_0[11]) == "template <class T, typename D> template <typename T> T sf::sd::User<T, D>::getSomethingElse() {}"
+        assert str(methods_0[12]) == "template <class T, typename D> void sf::sd::User<T, D>::foo() {}"
+        assert str(methods_0[13]) == "template <class T, typename D> void sf::sd::User<T, D>::stop() {}"
+
+        methods_0[13].add_option("newline_after_template", True)
+        methods_0[13].add_option("newline_after_method", True)
+        methods_0[13].add_option("place_cursor_between_brackets", True)
+
+        assert str(methods_0[13]) == "template <class T, typename D>\nvoid sf::sd::User<T, D>::stop() \n{\n\t}"
+
+        methods_0[13].add_option("newline_after_template", False)
+        methods_0[13].add_option("newline_after_method", True)
+        methods_0[13].add_option("place_cursor_between_brackets", True)
+
+        assert str(methods_0[13]) == "template <class T, typename D> void sf::sd::User<T, D>::stop() \n{\n\t}"
+
+        methods_0[13].add_option("newline_after_template", False)
+        methods_0[13].add_option("newline_after_method", False)
+        methods_0[13].add_option("place_cursor_between_brackets", True)
+
+        assert str(methods_0[13]) == "template <class T, typename D> void sf::sd::User<T, D>::stop() {\n\t}"
+
+        methods_0[13].add_option("newline_after_template", False)
+        methods_0[13].add_option("newline_after_method", False)
+        methods_0[13].add_option("place_cursor_between_brackets", False)
+
+        assert str(methods_0[13]) == "template <class T, typename D> void sf::sd::User<T, D>::stop() {}"

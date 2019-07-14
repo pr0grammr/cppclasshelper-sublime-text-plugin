@@ -9,6 +9,12 @@ class Method:
         self._is_const = False
         self._is_pure_virtual = False
 
+        self._options = {
+            "newline_after_template": False,
+            "newline_after_method": False,
+            "place_cursor_between_brackets": False
+        }
+
     @property
     def name(self):
         return self._name
@@ -64,25 +70,51 @@ class Method:
     def is_pure_virtual(self, is_pure_virtual):
         self._is_pure_virtual = is_pure_virtual
 
-    def render(self):
+    @property
+    def options(self):
+        return self._options
+
+    def add_option(self, option, value):
+        self._options[option] = value
+
+    def __str__(self):
+        """
+        renders full method definition with all components
+        :return: str
+        """
 
         # creating empty method string to fill
         method = ""
 
+        # check if class has template
+        # place newline after each template if option is set
         if self._class.template is not None:
-            method += str(self._class.template) + " "
+            method += str(self._class.template)
+            if self._options["newline_after_template"]:
+                method += "\n"
+            else:
+                method += " "
 
+        # check if method has template
+        # place newline after method if option is set
         if self._template is not None:
-            method += str(self.template) + " "
+            method += str(self.template)
+            if self._options["newline_after_template"]:
+                method += "\n"
+            else:
+                method += " "
 
+        # make sure to leave space between the definition components
         if self._return_type is not None:
             method += self._return_type + " "
 
+        # insert 2 colons if class has namespace
         if self._class.namespace is not None:
             method += self._class.namespace + "::"
 
         method += self._class.name
 
+        # render class templates; merging the template types
         if self._class.template is not None:
             class_template_types = []
             for template_type in self._class.template.template_types:
@@ -90,16 +122,30 @@ class Method:
 
             method += "<{}>".format(', '.join(class_template_types))
 
+        # connecting again the definition components
         method += "::"
         method += self._name
 
+        # create list comprehension from method arguments
+        # make sure to strip every argument
         if self._arguments:
             self._arguments = [x.strip() for x in self._arguments]
             self._arguments = ', '.join(self._arguments)
         else:
             self._arguments = ""
 
-        method += "({})".format(self._arguments)
-        method += " {}"
+        # insert arguments
+        method += "({}) ".format(self._arguments)
 
+        # place newline after if option is set
+        if self._options["newline_after_method"]:
+            method += "\n"
+
+        # place newline and tab after brackets, so cursor is placed between the brackets
+        if self._options["place_cursor_between_brackets"]:
+            method += "{\n\t}"
+        else:
+            method += "{}"
+
+        # strip to only make sure, there are no spaces at begin and end of definition
         return method.strip()
