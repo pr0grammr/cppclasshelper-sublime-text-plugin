@@ -165,6 +165,8 @@ class MethodTokenizer(Tokenizer):
                     continue
 
                 method_name_parts = method_name_parts.group(1)
+                method_name_parts = re.sub(r"([\s+])", " ", method_name_parts)
+
                 method_name_parts_split = method_name_parts.split(' ')
 
                 # check if method might be a contructor or destructor and set method name equal to first key
