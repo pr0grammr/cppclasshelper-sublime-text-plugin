@@ -8,7 +8,13 @@
 	// set to false if you want to use alternative header style
 	"use_pragma_once": true,
 
-	"newline_after_template": false,
-	"newline_after_method": false,
-	"place_cursor_between_brackets": false
+    // inserts a newline after every template
+	"newline_after_template": true,
+
+	// inserts newline after method definitions
+	// curly brackets will be placed to the next line
+	"newline_after_method": true,
+
+	// places the cursor inside the brackets, so you can directly start typing
+	"place_cursor_between_brackets": true
 }

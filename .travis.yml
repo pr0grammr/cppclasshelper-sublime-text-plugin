@@ -11,3 +11,4 @@ install:
 script:
   - python -m pytest -r tests/test_tokenizer.py
   - python -m pytest -r tests/test_parser.py
+  - python -m pytest -r tests/test_generator.py
