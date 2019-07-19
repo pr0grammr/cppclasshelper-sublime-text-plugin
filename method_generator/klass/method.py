@@ -101,6 +101,10 @@ class Method:
         # check if method has template
         # place newline after method if option is set
         if self._template is not None:
+
+            if self._class.template:
+                method += " "
+
             method += str(self.template)
             if self._options["newline_after_template"]:
                 method += "\n"
@@ -109,6 +113,10 @@ class Method:
 
         # make sure to leave space between the definition components
         if self._return_type:
+
+            if not self.options["newline_after_template"]:
+                method += " "
+
             method += self._return_type + " "
         else:
 

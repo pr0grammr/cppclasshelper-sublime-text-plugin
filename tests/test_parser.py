@@ -93,19 +93,19 @@ class TestMethodParser:
         methods_0[13].add_option("newline_after_method", True)
         methods_0[13].add_option("place_cursor_between_brackets", True)
 
-        assert str(methods_0[13]) == "template <class T, typename D>\nvoid sf::sd::User<T, D>::stop() \n{\n\t}"
+        assert str(methods_0[13]) == "template <class T, typename D>\nvoid sf::sd::User<T, D>::stop() \n{\n\t\n}"
 
         methods_0[13].add_option("newline_after_template", False)
         methods_0[13].add_option("newline_after_method", True)
         methods_0[13].add_option("place_cursor_between_brackets", True)
 
-        assert str(methods_0[13]) == "template <class T, typename D> void sf::sd::User<T, D>::stop() \n{\n\t}"
+        assert str(methods_0[13]) == "template <class T, typename D> void sf::sd::User<T, D>::stop() \n{\n\t\n}"
 
         methods_0[13].add_option("newline_after_template", False)
         methods_0[13].add_option("newline_after_method", False)
         methods_0[13].add_option("place_cursor_between_brackets", True)
 
-        assert str(methods_0[13]) == "template <class T, typename D> void sf::sd::User<T, D>::stop() {\n\t}"
+        assert str(methods_0[13]) == "template <class T, typename D> void sf::sd::User<T, D>::stop() {\n\t\n}"
 
         methods_0[13].add_option("newline_after_template", False)
         methods_0[13].add_option("newline_after_method", False)
