@@ -1,6 +1,9 @@
 import sublime, sublime_plugin, os
-from .template import Template
 from sublime_lib import ResourcePath
+
+from .method_generator.exceptions import ClassValidationException
+from .method_generator.generator import Generator
+from .template import Template
 
 class CreateCppClassCommand(sublime_plugin.WindowCommand):
 	'''
@@ -103,7 +106,7 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 			sublime.error_message("Error while creating class: {}".format(str(e)))
 
 
-	
+
 	def open_files(self):
 		'''
 		open files after creation
@@ -122,5 +125,101 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 		class_name = class_name.upper()
 
 		return class_name
-		
-		
+
+
+class GenerateMethodDefinitionCommand(sublime_plugin.WindowCommand):
+
+	# valid header extensions to search for
+	VALID_HEADER_EXTENSIONS = [
+		"hpp",
+		"h",
+		"hh",
+		"H",
+		"hxx",
+		"h++"
+	]
+
+	class_file = None
+	method_list = None
+	method_definitions = None
+	method_to_insert = None
+
+	def run(self):
+
+		# get filename of active view and get class name which to search the header
+		vars = self.window.extract_variables()
+		class_name = vars["file_base_name"]
+		root_dir = vars["folder"]
+
+		self.class_file = self._find_class(root_dir, class_name)
+
+		# find out which class header to use
+		if len(self.class_file) == 1:
+			self.class_file = self.class_file[0]
+			self._generate_method(self.class_file)
+		elif len(self.class_file) > 1:
+			self.window.active_view().show_popup_menu(self.class_file, self.on_class_select)
+		elif not self.class_file:
+			sublime.error_message("Could not find the class header in any directory")
+
+
+	def on_class_select(self, class_index):
+
+		if class_index == -1:
+			return
+
+		self.class_file = self.class_file[class_index]
+
+		self._generate_method(self.class_file)
+
+	def _generate_method(self, class_file):
+
+		with open(class_file, 'r') as file:
+			source_code = file.read()
+
+
+		try:
+			generator = Generator(source_code)
+
+			self.method_list = generator.generate_method_list(generator.NAMES)
+			self.method_definitions = generator.generate_method_list(generator.DEFINITIONS)
+
+			self.window.active_view().show_popup_menu(self.method_list, self.on_method_select)
+
+		except ClassValidationException as e:
+			sublime.error_message(str(e))
+
+	def insert_method(self, method):
+		self.window.run_command('insert_method', {'method': method})
+
+	def on_method_select(self, method_index):
+		if method_index == -1:
+			return
+
+		self.method_to_insert = self.method_definitions[method_index]
+		self.insert_method(self.method_to_insert)
+
+	def _find_class(self, directory, class_name):
+
+		class_files = []
+
+		for root, dirs, files in os.walk(directory):
+			for file in files:
+
+				# find base filename and then iterate over valid extensions to find right file
+				file_basename = file
+				file = os.path.splitext(file)
+				file = file[0]
+
+				if file == class_name:
+					for ext in self.VALID_HEADER_EXTENSIONS:
+						if file_basename == class_name + '.' + ext:
+							class_files.append(os.path.join(root, file_basename))
+
+		return class_files
+
+
+class InsertMethodCommand(sublime_plugin.TextCommand):
+
+	def run(self, edit, **kwargs):
+		self.view.insert(edit, self.view.sel()[0].begin(), kwargs["method"])

@@ -6,5 +6,20 @@
 	"header_file_extension": "hpp",
 
 	// set to false if you want to use alternative header style
-	"use_pragma_once": true
+	"use_pragma_once": true,
+
+	"method_rendering":
+	{
+		"insert_newline_after_template": true,
+
+		"template": {
+			"datatype": "{identifier} {datatype}",
+			"seperator": ", ",
+			"render": "template <{content}>"
+		},
+		"method": {
+			"argument": "{keyword} {identifier}{operator} {datatype}",
+			"render": "{return_type}{operator} {namespace}::{class_name}{template}::{method_name}({arguments}) {{}} {keywords}"
+		}
+	}
 }

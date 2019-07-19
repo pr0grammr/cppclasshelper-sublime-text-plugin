@@ -3,6 +3,7 @@ from method_generator.tokenizer import ClassTokenizer
 from method_generator.exceptions import ClassValidationException
 import os
 
+
 def read_files_as_tokenizers():
     test_files = [
         os.path.abspath("tests/files/User.hpp"),
