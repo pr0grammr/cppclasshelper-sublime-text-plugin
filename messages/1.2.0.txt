@@ -1,0 +1,7 @@
+- added new feature:
+
+METHOD DEFINITION GENERATION:
+
+Create definitions for your C++ class methods by pressing CTRL + SHIFT + P to open command palette and type in "C++ Classhelper - Generate Method Definition" or select the option by right click in your current window to open the context menu.
+
+HINT: Works only for class methods

@@ -34,7 +34,7 @@ Since version **1.2.0** you are able to generate definitions for your class meth
 
 <img src="https://github.com/pr0grammr/cppclasshelper-sublime-text-plugin/raw/master/method-definition.gif">
 
-Press <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd> to open command palette. Type in `C++ Classhelper - Generate Method Definition` and select the method you want to generate the definition. 
+Press <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd> to open command palette. Type in `C++ Classhelper - Generate Method Definition` (or right click in your current window to select the option via context menu) and select the method you want to generate the definition. 
 
 ## Settings
 
