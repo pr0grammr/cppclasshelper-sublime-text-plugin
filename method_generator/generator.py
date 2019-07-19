@@ -18,7 +18,7 @@ class Generator:
         if method.return_type is None:
             method.return_type = ""
 
-        return "{} {}".format(method.return_type, method.name)
+        return "{} {}".format(method.return_type, method.name).strip()
 
     def generate_method_list(self, return_mode):
         """
@@ -41,7 +41,7 @@ class Generator:
 
             key = self._generate_method_display_name(method)
             method_names_list.append(key)
-            method_definitions_list.append(str(method))
+            method_definitions_list.append(method)
 
         if return_mode == self.DEFINITIONS:
             return method_definitions_list

@@ -96,7 +96,7 @@ class Method:
             if self._options["newline_after_template"]:
                 method += "\n"
             else:
-                method += " "
+                method += ""
 
         # check if method has template
         # place newline after method if option is set
@@ -105,11 +105,17 @@ class Method:
             if self._options["newline_after_template"]:
                 method += "\n"
             else:
-                method += " "
+                method += ""
 
         # make sure to leave space between the definition components
-        if self._return_type is not None:
+        if self._return_type:
             method += self._return_type + " "
+        else:
+
+            if self.options["newline_after_template"]:
+                method += ""
+            else:
+                method += " "
 
         # insert 2 colons if class has namespace
         if self._class.namespace is not None:
@@ -150,7 +156,7 @@ class Method:
 
         # place newline and tab after brackets, so cursor is placed between the brackets
         if self._options["place_cursor_between_brackets"]:
-            method += "{\n\t}"
+            method += "{\n\t\n}"
         else:
             method += "{}"
 

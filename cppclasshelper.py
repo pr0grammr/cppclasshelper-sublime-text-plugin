@@ -128,6 +128,9 @@ class CreateCppClassCommand(sublime_plugin.WindowCommand):
 
 
 class GenerateMethodDefinitionCommand(sublime_plugin.WindowCommand):
+	"""
+	generates methods for C++ header class
+	"""
 
 	# valid header extensions to search for
 	VALID_HEADER_EXTENSIONS = [
@@ -143,6 +146,11 @@ class GenerateMethodDefinitionCommand(sublime_plugin.WindowCommand):
 	method_list = None
 	method_definitions = None
 	method_to_insert = None
+	settings = None
+
+	NEWLINE_AFTER_TEMPLATE = False
+	NEWLINE_AFTER_METHOD = False
+	PLACE_CURSOR_BETWEEN_BRACKETS = False
 
 	def run(self):
 
@@ -152,6 +160,13 @@ class GenerateMethodDefinitionCommand(sublime_plugin.WindowCommand):
 		root_dir = vars["folder"]
 
 		self.class_file = self._find_class(root_dir, class_name)
+
+		self.settings = sublime.load_settings("C++ Classhelper.sublime-settings")
+
+		# setting constants with settings
+		self.NEWLINE_AFTER_TEMPLATE = self.settings.get("newline_after_template")
+		self.NEWLINE_AFTER_METHOD = self.settings.get("newline_after_method")
+		self.PLACE_CURSOR_BETWEEN_BRACKETS = self.settings.get("place_cursor_between_brackets")
 
 		# find out which class header to use
 		if len(self.class_file) == 1:
@@ -190,7 +205,26 @@ class GenerateMethodDefinitionCommand(sublime_plugin.WindowCommand):
 			sublime.error_message(str(e))
 
 	def insert_method(self, method):
-		self.window.run_command('insert_method', {'method': method})
+
+		method.add_option(
+			"newline_after_template",
+			self.NEWLINE_AFTER_TEMPLATE
+		)
+
+		method.add_option(
+			"newline_after_method",
+			self.NEWLINE_AFTER_METHOD
+		)
+
+		method.add_option(
+			"place_cursor_between_brackets",
+			self.PLACE_CURSOR_BETWEEN_BRACKETS
+		)
+
+		self.window.run_command('insert_method', {
+			'method': str(method),
+			'cursor_between_brackets': self.PLACE_CURSOR_BETWEEN_BRACKETS
+		})
 
 	def on_method_select(self, method_index):
 		if method_index == -1:
@@ -220,6 +254,17 @@ class GenerateMethodDefinitionCommand(sublime_plugin.WindowCommand):
 
 
 class InsertMethodCommand(sublime_plugin.TextCommand):
+	"""
+	insert generated method into active view
+	"""
 
 	def run(self, edit, **kwargs):
-		self.view.insert(edit, self.view.sel()[0].begin(), kwargs["method"])
+
+		position = self.view.sel()[0].begin()
+		self.view.insert(edit, position, kwargs["method"])
+
+		# place cursor inside brackets
+		if kwargs["cursor_between_brackets"]:
+			pos = self.view.sel()[0].begin() - 2
+			self.view.sel().clear()
+			self.view.sel().add(sublime.Region(pos))
