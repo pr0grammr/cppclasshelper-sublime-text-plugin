@@ -1,6 +1,6 @@
 # C++ Class Helper Sublime Text Plugin
 
-Sublime Text Plugin for creating/generating C++ Classes.
+Sublime Text Plugin for creating/generating C++ Classes and since version 1.2.0 generate definitions for your C++ class methods.
 
 <a href="https://packagecontrol.io/packages/C%2B%2B%20Classhelper" target="_blank"><img src="https://img.shields.io/packagecontrol/dt/C++%20Classhelper.svg?color=%233a9ff5&style=flat-square"></a> <a href="https://github.com/pr0grammr/cppclasshelper-sublime-text-plugin/releases/latest"><img src="https://img.shields.io/github/release/pr0grammr/cppclasshelper-sublime-text-plugin.svg?color=%2360ce52&style=flat-square"></a> <img src="https://travis-ci.org/pr0grammr/cppclasshelper-sublime-text-plugin.svg?branch=master&style=flat-square">
 
