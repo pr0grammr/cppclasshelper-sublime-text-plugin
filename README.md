@@ -2,7 +2,7 @@
 
 Sublime Text Plugin for creating/generating C++ Classes.
 
-<a href="https://packagecontrol.io/packages/C%2B%2B%20Classhelper" target="_blank"><img src="https://img.shields.io/packagecontrol/dt/C++%20Classhelper.svg?color=%233a9ff5&style=flat-square"></a> <a href="https://github.com/pr0grammr/cppclasshelper-sublime-text-plugin/releases/latest"><img src="https://img.shields.io/github/release/pr0grammr/cppclasshelper-sublime-text-plugin.svg?color=%2360ce52&style=flat-square"></a> <img src="https://img.shields.io/travis/com/pr0grammr/cppclasshelper-sublime-text-plugin/feature%2Fgenerate-method-definitions.svg?style=flat-square">
+<a href="https://packagecontrol.io/packages/C%2B%2B%20Classhelper" target="_blank"><img src="https://img.shields.io/packagecontrol/dt/C++%20Classhelper.svg?color=%233a9ff5&style=flat-square"></a> <a href="https://github.com/pr0grammr/cppclasshelper-sublime-text-plugin/releases/latest"><img src="https://img.shields.io/github/release/pr0grammr/cppclasshelper-sublime-text-plugin.svg?color=%2360ce52&style=flat-square"></a> <img src="https://travis-ci.org/pr0grammr/cppclasshelper-sublime-text-plugin.svg?branch=master&style=flat-square">
 
 ## Installation
 
@@ -32,7 +32,7 @@ Right-click on the folder in your sidebar, where you want to create your class a
 
 Since version **1.2.0** you are able to generate definitions for your class methods.
 
-<img src="https://raw.githubusercontent.com/pr0grammr/cpp-classhelper-sublime-text-plugin/master/method-definition.gif">
+<img src="https://github.com/pr0grammr/cppclasshelper-sublime-text-plugin/raw/master/method-definition.gif">
 
 Press <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd> to open command palette. Type in `C++ Classhelper - Generate Method Definition` and select the method you want to generate the definition. 
 
