@@ -18,6 +18,8 @@ class ClassParser:
         if input_obj["methods"]:
             for method in cls._parse_methods(input_obj["methods"]):
                 method.related_class = klass
+                print(method.name)
+                print(method.return_type)
                 klass.add_method(method)
 
         klass.template = TemplateParser().parse(input_obj["template"])
